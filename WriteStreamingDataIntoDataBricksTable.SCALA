@@ -11,7 +11,7 @@ val result =
   streamingDataFrame
     .writeStream
     .format("parquet")
-    .option("path", "/mnt/TwitterSentiment")
+    .option("path", "/mnt/TwitterSentiment")  
     .option("checkpointLocation", "/mnt/temp/check")
     .start()
 
@@ -19,3 +19,6 @@ val result =
 val sentimentdata = spark.read.parquet("/mnt/TwitterSentiment") 
 
 display(sentimentdata)
+
+// Write Parquet data as a Data Table in Databricks
+spark.read.parquet("/mnt/TwitterSentiment").write.mode(SaveMode.Overwrite) saveAsTable("twitter_sentiment")
